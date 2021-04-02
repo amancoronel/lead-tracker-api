@@ -10,6 +10,9 @@
   },
   "author": "Prince Amante Coronel",
   "license": "ISC",
+  "engines": {
+    "node" : ">=0.12"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
