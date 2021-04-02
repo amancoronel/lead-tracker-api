@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require('express-session')
+const config = require('../config');
 
 
 module.exports = (app) => {
@@ -12,7 +13,7 @@ module.exports = (app) => {
     //TO ACCESS URI ENDPOINT
 
     app.use(session({
-        secret: process.env.SESSION_SECRET,
+        secret: config.SESSION_SECRET,
         resave:false,
         saveUninitialized: true,
         cookie: { maxAge: 60000 }
