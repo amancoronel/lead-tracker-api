@@ -12,7 +12,10 @@ module.exports = (app) => {
 
     app.post('/login', async (req, res) => {
         try {
-            const userCred =  {...req.body.data};
+            if(req.session.token) {
+                res.status(200).json({user : req.session.user, access_token: req.session.token});
+            }
+            const userCred =  {...req.body};
             //Search if agent is existing
             const agents = Classes.agents.data;
             const userFound = Object.keys(agents).filter((x) => agents[x].email === userCred.email );
@@ -23,9 +26,10 @@ module.exports = (app) => {
             if(!token) throw "Login failed"
 
             req.session.token = token;
+            req.session.user = user;
             res.status(200).json({user, access_token: token});
         } catch(e) {
-            res.status(400).json({message: e})
+            res.status(203).json({message: e})
         } 
     })
 
