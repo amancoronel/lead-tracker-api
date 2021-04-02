@@ -14,35 +14,53 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         const category = req.params.category;
         let data = Classes[category].data;
         data = (category === "transaction") ? await Functions.processTransactionData(data) : await Functions.processData(data);
-        res.send(data);
+        res.status(200).json(data);
     })
 
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
-        const category = req.params.category;
-        const allData = await dataParser.readFile(category);
-        // allData[v4uuid()] = req.body;
-        allData[v4uuid()] = {"name":"king arthur","password":"password1","profession":"king","id":1}
-        await dataParser.writeFile(category, allData);
-        Classes[category].data = allData;
-        res.send(allData);
+        try {
+            const category = req.params.category;
+            const allData = await dataParser.readFile(category); //JSON FILE READER
+            const dataExist = await Functions.validator(category, allData, req.body); //CHECKER IF DATA EXISTS IN DB
+            if(dataExist && dataExist.length > 0) throw "Data exist";
+            const id = v4uuid(); // RANDOM ID
+            allData[id] = {...req.body, id} //ADDED ID TO REQUEST BODY
+            await dataParser.writeFile(category, allData);
+            Classes[category].data = allData;
+            res.status(200).json(allData);
+        } catch(e) {
+            res.status(400).json({message: e});
+        }
+        
     })
 
     router.put('/updateData/:category/:id', verifyToken, async (req, res) => {
-        const category = req.params.category;
-        const allData = await dataParser.readFile('category');
-        allData[id] = req.body;
-        await dataParser.writeFile(category, allData);
-        Classes[category].data = allData;
-        res.send(allData);
+        try {
+            const category = req.params.category;
+            const allData = await dataParser.readFile('category');
+            if(!allData[id]) throw "Record not found";
+            allData[id] = req.body;
+            await dataParser.writeFile(category, allData);
+            Classes[category].data = allData;
+            res.send(allData);
+        } catch(e) {
+            res.status(400).json({message: e});
+        }
+        
     })
 
     router.delete('/deleteData/:category/:id', verifyToken, async (req, res) => {
-        const category = req.params.category;
-        const allData = await dataParser.readFile('category');
-        delete allData[id];
-        await dataParser.writeFile(category, allData);
-        Classes[category].data = allData;
-        res.send(allData);
+        try {
+            const category = req.params.category;
+            const allData = await dataParser.readFile('category');
+            if(!allData[id]) throw "Record not found";
+            delete allData[id];
+            await dataParser.writeFile(category, allData);
+            Classes[category].data = allData;
+            res.send(allData);
+        } catch(e) {
+            res.status(400).json({message: e});
+        }
     })
     
 module.exports = router

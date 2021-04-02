@@ -9,7 +9,7 @@ exports.getAuthId = async (info) => {
 exports.verifyToken = async (req, res, next) => {
     try {
         let bearer = req.get("Authorization");
-        console.log("**** ", bearer);
+        // console.log("**** ", bearer);
         if(!bearer) throw "Session Expired"; 
 
         let token = bearer.split(" ")[1];

@@ -28,3 +28,5 @@ exports.processData = async (data) => {
         return {...data[index]};
     })
 }
+
+exports.validator = require('./validator');
