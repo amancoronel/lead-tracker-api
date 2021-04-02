@@ -7,7 +7,7 @@ const port = process.env.DEV_PORT || 8080;
 require('./middleware')(app);
 require('./routes')(app);
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     loader(); // LOAD DATA TO CLASSES
     console.log("server running at "+port);
 });
