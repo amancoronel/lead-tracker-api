@@ -21,7 +21,9 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         const category = req.params.category;
         const id = req.params.id;
         const data = {...Classes[category].data};
-        const newData = (category === "leads") ? await Functions.processLeadData(data[id]) : await Functions.processData(data[id]);
+        let dataToThrow = {};
+        dataToThrow[id] = {...data[id]};
+        const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow) : await Functions.processData(dataToThrow);
         res.status(200).json(newData);
     })
 
