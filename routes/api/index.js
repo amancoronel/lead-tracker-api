@@ -38,7 +38,9 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             allData[id] = {...req.body, id} //ADDED ID TO REQUEST BODY
             await dataParser.writeFile(category, allData);
             Classes[category].data = allData;
-            res.status(200).json(allData);
+            const dataToThrow = {...allData}
+            const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow, false) : await Functions.processData(dataToThrow);
+            res.status(200).json(newData);
         } catch(e) {
             res.status(400).json({message: e});
         }
@@ -54,7 +56,11 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             allData[id] = req.body;
             await dataParser.writeFile(category, allData);
             Classes[category].data = allData;
-            res.send(allData);
+            
+            const dataToThrow = {...allData}
+            const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow, false) : await Functions.processData(dataToThrow);
+
+            res.send(newData);
         } catch(e) {
             res.status(400).json({message: e});
         }

@@ -14,13 +14,6 @@ exports.processLeadData = async (leadss, isSingle) => {
         delete addressData['id'];
         delete lenderData['id'];
         delete contractorData['id'];
-        if(!isSingle) {
-            delete data['agent_id'];
-            delete data['address_id'];
-            delete data['lender_id'];
-            delete data['contractor_id'];
-        }
-
         return {...data, agentData: agentName, addressData, lenderData, contractorData};
     })
 }
