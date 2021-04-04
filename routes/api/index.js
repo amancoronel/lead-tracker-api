@@ -46,7 +46,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         try {
             const category = req.params.category;
             const id = req.params.id;
-            const allData = await dataParser.readFile('category');
+            const allData = await dataParser.readFile(category);
             if(!allData[id]) throw "Record not found";
             allData[id] = req.body;
             await dataParser.writeFile(category, allData);
@@ -62,7 +62,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         try {
             const category = req.params.category;
             const id = req.params.id;
-            const allData = await dataParser.readFile('category');
+            const allData = await dataParser.readFile(category);
             if(!allData[id]) throw "Record not found";
             delete allData[id];
             await dataParser.writeFile(category, allData);
