@@ -29,10 +29,11 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
 
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
         try {
+            console.log("*** req,bod",req.body);
             const category = req.params.category;
             const allData = await dataParser.readFile(category); //JSON FILE READER
             const dataExist = await Functions.validator(category, allData, req.body); //CHECKER IF DATA EXISTS IN DB
-            if(dataExist && dataExist.length > 0) throw "Data exist";
+            if(category != "leads" && dataExist && dataExist.length > 0) throw "Data exist";
             const id = v4uuid(); // RANDOM ID
             allData[id] = {...req.body, id} //ADDED ID TO REQUEST BODY
             await dataParser.writeFile(category, allData);
