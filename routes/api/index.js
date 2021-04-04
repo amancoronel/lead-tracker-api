@@ -45,6 +45,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
     router.put('/updateData/:category/:id', verifyToken, async (req, res) => {
         try {
             const category = req.params.category;
+            const id = req.params.id;
             const allData = await dataParser.readFile('category');
             if(!allData[id]) throw "Record not found";
             allData[id] = req.body;
@@ -60,6 +61,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
     router.delete('/deleteData/:category/:id', verifyToken, async (req, res) => {
         try {
             const category = req.params.category;
+            const id = req.params.id;
             const allData = await dataParser.readFile('category');
             if(!allData[id]) throw "Record not found";
             delete allData[id];
