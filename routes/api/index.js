@@ -12,17 +12,17 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
 
     router.get('/getAllData/:category', verifyToken, async (req, res) => {
         const category = req.params.category;
-        let data = Classes[category].data;
-        data = (category === "leads") ? await Functions.processLeadData(data) : await Functions.processData(data);
-        res.status(200).json(data);
+        const data = {...Classes[category].data};
+        const newData = (category === "leads") ? await Functions.processLeadData(data) : await Functions.processData(data);
+        res.status(200).json(newData);
     })
 
     router.get('/getData/:category/:id', verifyToken, async (req, res) => {
         const category = req.params.category;
         const id = req.params.id;
-        let data = Classes[category].data;
-        data = (category === "leads") ? await Functions.processLeadData(data[id]) : await Functions.processData(data[id]);
-        res.status(200).json(data);
+        const data = {...Classes[category].data};
+        const newData = (category === "leads") ? await Functions.processLeadData(data[id]) : await Functions.processData(data[id]);
+        res.status(200).json(newData);
     })
 
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
