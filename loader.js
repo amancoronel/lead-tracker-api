@@ -6,5 +6,5 @@ module.exports = async () => {
     Classes.agents.data = await dataParser.readFile('agents');
     Classes.contractors.data = await dataParser.readFile('contractors');
     Classes.lenders.data = await dataParser.readFile('lenders');
-    Classes.transactions.data = await dataParser.readFile('transactions');
+    Classes.leads.data = await dataParser.readFile('leads');
 }

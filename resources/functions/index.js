@@ -1,8 +1,8 @@
 const Classes = require('../classes');
 
-exports.processTransactionData = async (transactions) => {
-    return finalData = Object.keys(transactions).map((trans) => {
-        let data = transactions[trans];
+exports.processLeadData = async (leads) => {
+    return finalData = Object.keys(leads).map((trans) => {
+        let data = leads[trans];
 
         const agentData = Classes.agents.getSingleData(data.agent_id);
         const addressData = Classes.addresses.getSingleData(data.address_id);
