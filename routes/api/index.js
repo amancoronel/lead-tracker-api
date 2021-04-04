@@ -17,6 +17,14 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         res.status(200).json(data);
     })
 
+    router.get('/getData/:category/:id', verifyToken, async (req, res) => {
+        const category = req.params.category;
+        const id = req.params.id;
+        let data = Classes[category].data;
+        data = (category === "transaction") ? await Functions.processTransactionData(data[id]) : await Functions.processData(data[id]);
+        res.status(200).json(data);
+    })
+
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
         try {
             const category = req.params.category;
