@@ -1,2 +1,7 @@
 node_modules
 .env
+data/addresses.json
+data/agents.json
+data/contractors.json
+data/leads.json
+data/lenders.json

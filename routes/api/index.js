@@ -29,7 +29,6 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
 
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
         try {
-            console.log("*** req,bod",req.body);
             const category = req.params.category;
             const allData = await dataParser.readFile(category); //JSON FILE READER
             const dataExist = await Functions.validator(category, allData, req.body); //CHECKER IF DATA EXISTS IN DB

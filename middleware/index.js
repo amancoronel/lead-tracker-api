@@ -10,7 +10,7 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true}));
     app.use(cors({
-        origin: 'http://localhost:3000',
+        origin: 'https://lead-manager-client.herokuapp.com/',
         credentials: true
     }));
     //TO ACCESS URI ENDPOINT
