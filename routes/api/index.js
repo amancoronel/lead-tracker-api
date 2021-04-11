@@ -35,6 +35,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             if(category != "leads" && dataExist && dataExist.length > 0) throw "Data exist";
             const id = v4uuid(); // RANDOM ID
             allData[id] = {...req.body, id} //ADDED ID TO REQUEST BODY
+            allData[id].status = true;
             await dataParser.writeFile(category, allData);
             Classes[category].data = allData;
             const dataToThrow = {...allData}
@@ -72,7 +73,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const id = req.params.id;
             const allData = await dataParser.readFile(category);
             if(!allData[id]) throw "Record not found";
-            delete allData[id];
+            allData[id].status = false;
             await dataParser.writeFile(category, allData);
             Classes[category].data = allData;
             res.send(allData);
