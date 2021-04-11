@@ -8,15 +8,16 @@ exports.processLeadData = async (leadss, isSingle) => {
         if(trans.status) {
             let data = {...trans};
             const agentData = {...Classes.agents.getSingleData(data.agent_id)};
-            const addressData = {...Classes.addresses.getSingleData(data.address_id)};
+            // const addressData = {...Classes.addresses.getSingleData(data.address_id)};
             const lenderData = {...Classes.lenders.getSingleData(data.lender_id)};
             const contractorData = {...Classes.contractors.getSingleData(data.contractor_id)};
             const agentName = `${agentData.first_name} ${agentData.middle_name} ${agentData.last_name}`;
             
-            delete addressData['id'];
+            // delete addressData['id'];
             delete lenderData['id'];
             delete contractorData['id'];
-            return {...data, agentData: agentName, addressData, lenderData, contractorData};
+            // return {...data, agentData: agentName, addressData, lenderData, contractorData};
+            return {...data, agentData: agentName, lenderData, contractorData};
         }
     })
 }
