@@ -12,26 +12,5 @@
         "middle_name": "Mname" ,
         "last_name": "Lname 223",
         "email": "howellkitacalabia@gmail.com"
-    },
-    "323" : {
-        "id": 323,
-        "first_name": "Fname", 
-        "middle_name": "Mname" ,
-        "last_name": "Lname 323",
-        "email": "email323@test.com"
-    },
-    "423" : {
-        "id": 423,
-        "first_name": "Fname", 
-        "middle_name": "Mname" ,
-        "last_name": "Lname 423",
-        "email": "email423@test.com"
-    },
-    "523" : {
-        "id": 523,
-        "first_name": "Fname", 
-        "middle_name": "Mname" ,
-        "last_name": "Lname 523",
-        "email": "email523@test.com"
     }
 }
