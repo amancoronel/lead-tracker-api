@@ -9,7 +9,7 @@ const config = require('../config');
 module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true}));
-    app.use(cors({ credentials: true }));
+    app.use(cors());
     //TO ACCESS URI ENDPOINT
 
     app.use(session({
