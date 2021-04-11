@@ -15,6 +15,7 @@ module.exports = (app) => {
             if(req.session.token) {
                 res.status(200).json({user : req.session.user, access_token: req.session.token});
             }
+            console.log("************** testing login")
             const userCred =  {...req.body};
             //Search if agent is existing
             const agents = Classes.agents.data;
@@ -29,6 +30,7 @@ module.exports = (app) => {
             req.session.user = user;
             res.status(200).json({user, access_token: token});
         } catch(e) {
+            console.log("************** testing login error ", e);
             res.status(203).json({message: e})
         } 
     })
