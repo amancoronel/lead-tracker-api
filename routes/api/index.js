@@ -54,6 +54,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const allData = await dataParser.readFile(category);
             if(!allData[id]) throw "Record not found";
             allData[id] = req.body;
+            allData[id].status = true;
             await dataParser.writeFile(category, allData);
             Classes[category].data = allData;
             
