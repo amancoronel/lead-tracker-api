@@ -1,1 +1,17 @@
-{}
+{
+    "cd5c970e-7310-415c-9219-93cf8e8422bc": {
+        "lender_name": "BPI",
+        "id": "cd5c970e-7310-415c-9219-93cf8e8422bc",
+        "status": true
+    },
+    "72a6e4fe-2080-470b-8542-a24e40d0ed60" : {
+        "lender_name": "BDO",
+        "id": "72a6e4fe-2080-470b-8542-a24e40d0ed60",
+        "status": true
+    },
+    "01864270-b765-4d59-9ddd-9f940cd7921e" : {
+        "lender_name": "Metrobank b",
+        "id": "01864270-b765-4d59-9ddd-9f940cd7921e",
+        "status": true
+    }
+}
