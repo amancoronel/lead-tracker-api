@@ -33,7 +33,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const allData = await dataParser.readFile(category); //JSON FILE READER
             const dataExist = await Functions.validator(category, allData, req.body); //CHECKER IF DATA EXISTS IN DB
             if(category != "leads" && dataExist && dataExist.length > 0 && allData[dataExist[0]].status === true) throw "Data exist";
-            const id = dataExist && dataExist.length > 0 ? dataExist[0] : v4uuid(); // RANDOM ID
+            const id = category != "leads" && dataExist && dataExist.length > 0 ? dataExist[0] : v4uuid(); // RANDOM ID
             allData[id] = {...req.body, id} //ADDED ID TO REQUEST BODY
             allData[id].status = true;
             await dataParser.writeFile(category, allData);
