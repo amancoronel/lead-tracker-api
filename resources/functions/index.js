@@ -32,3 +32,4 @@ exports.processData = async (data) => {
 }
 
 exports.validator = require('./validator');
+exports.db = require('./db');
