@@ -14,7 +14,6 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
         const category = req.params.category;
         // const data = await Functions.db.getData({}, category);
         const newData = (category === "leads") ? await Functions.db.getLeadData({}) : await Functions.db.getData({}, category);
-        console.log("NEW DATAAAAAAAA", newData);
         res.status(200).json(newData);
     })
 
@@ -31,7 +30,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
     router.post('/addNewData/:category', verifyToken, async (req, res) => {
         try {
             const category = req.params.category;
-            req.body[status] = true;
+            req.body["status"] = true;
             await Functions.db.addData(req.body, category);
             const newData = await Functions.db.getData({}, category);
             // const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow, false) : await Functions.processData(dataToThrow);
@@ -49,8 +48,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const id = req.params.id;
             delete req.body.id;
             await Functions.db.updateData({ "_id" : id}, req.body, category);
-            const dataToThrow = await Functions.db.getData({}, category);
-            // const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow, false) : await Functions.processData(dataToThrow);
+            const dataToThrow = (category === "leads") ? await Functions.db.getLeadData({}) : await Functions.db.getData({}, category);
             console.log("******** data", dataToThrow);
             res.send(dataToThrow);
         } catch(e) {
@@ -64,7 +62,7 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const category = req.params.category;
             const id = req.params.id;
             await Functions.db.updateData({ "_id" : id}, { status : false }, category);
-            const allData = await Functions.db.getData({}, category);
+            const allData = (category === "leads") ? await Functions.db.getLeadData({}) : await Functions.db.getData({}, category);
             res.send(allData);
         } catch(e) {
             res.status(400).json({message: e});

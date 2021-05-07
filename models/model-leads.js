@@ -9,7 +9,7 @@ module.exports = (mongoose, connection) => {
         leadSource:     {type: String},
         renovation:     {type: String},
         titleCompany:   {type: String},
-        hasEarnestMoneyDeposit: {type: Boolean},
+        hasEarnestMoneyDeposit: {type: String},
         isAssignedToContract: {type: Boolean},
         isClosed: {type: Boolean},
         isUnderRenovation: {type: Boolean},
@@ -17,7 +17,8 @@ module.exports = (mongoose, connection) => {
         status: {type: Boolean},
         closeDate:          {type: Date},
         estimatedFinish:    {type: Date},
-        vacantDate:         {type: Date}
+        vacantDate:         {type: Date},
+        status:             {type: Boolean, default: true}
     });
 
     return connection.model("leads", LeadSchema);

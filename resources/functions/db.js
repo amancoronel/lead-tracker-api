@@ -12,7 +12,7 @@ exports.addData = async (data, category) => {
 
 exports.getData = async (condition = {}, category) => {
     return new Promise((resolve, reject) => {
-        Model[category].find(condition)
+        Model[category].find({status : { $ne : false }})
         .then(data => resolve(data))
         .catch(error => reject(error))
     })
@@ -29,6 +29,34 @@ exports.updateData = async (condition = {}, data, category) => {
 exports.getLeadData = async (condition = {}) => {
     return new Promise((resolve, reject) => {
         Model.leads.aggregate([
+            {
+                "$project": {
+                    "agent_id": {
+                        "$toObjectId": "$agent_id"
+                    },
+                    "contractor_id" : {
+                        "$toObjectId": "$contractor_id"
+                    },
+                    "lender_id": {
+                        "$toObjectId": "$lender_id"
+                    },
+                    "address": 1,
+                    "address_type" : 1,
+                    "closeDate": 1,
+                    "estimatedFinishDate": 1,
+                    "hasEarnestMoneyDeposit": 1,
+                    "isAssignedToContract": 1,
+                    "isClosed" : 1,
+                    "isUnderRenovation" : 1,
+                    "isVacant" : 1,
+                    "leadNumber" : 1,
+                    "leadSource" : 1,
+                    "renovation": 1,
+                    "status": 1,
+                    "titleCompany": 1,
+                    "vacantDate" : 1
+                }
+            },
             {
                 $lookup : {
                     from: "agents",
@@ -84,7 +112,7 @@ exports.getLeadData = async (condition = {}) => {
                     "isVacant" : 1,
                     "leadNumber" : 1,
                     "leadSource" : 1,
-                    "lender_data": {
+                    "lenderData": {
                         "lender_name" : "$lender_data.lender_name",
                         "point_of_contact" : "$lender_data.point_of_contact",
                         "status" : "$lender_data.status",
