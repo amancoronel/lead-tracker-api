@@ -65,13 +65,35 @@ exports.getLeadData = async (condition = {}) => {
             {
                 "$project" : {
                     "_id" : "$_id",
-                    "lead_number" : "$lead_number",
+                    "address": 1,
+                    "address_type" : 1,
+                    "agentData" : { "$concat" : ["$agent_data.first_name"," ","$agent_data.middle_name"," ","$agent_data.last_name"] } ,
                     "agent_id": 1,
+                    "closeDate": 1,
+                    "contractorData" : {
+                        "contractor_name" : "$contractor_data.contractor_name",
+                        "contact_number": "$contractor_data.contact_number",
+                        "status" : "$contractor_data.status"
+                    },
                     "contractor_id": 1,
+                    "estimatedFinishDate": 1,
+                    "hasEarnestMoneyDeposit": 1,
+                    "isAssignedToContract": 1,
+                    "isClosed" : 1,
+                    "isUnderRenovation" : 1,
+                    "isVacant" : 1,
+                    "leadNumber" : 1,
+                    "leadSource" : 1,
+                    "lender_data": {
+                        "lender_name" : "$lender_data.lender_name",
+                        "point_of_contact" : "$lender_data.point_of_contact",
+                        "status" : "$lender_data.status",
+                    },
                     "lender_id": 1,
-                    "agent_data" : { "$concat" : ["$agent_data.first_name"," ","$agent_data.last_name"] } ,
-                    "contractor_data" : "$contractor_data.contractor_name",
-                    "lender_data": "$lender_data.lender_name"
+                    "renovation": 1,
+                    "status": 1,
+                    "titleCompany": 1,
+                    "vacantDate" : 1
                 } 
             }
         ])
