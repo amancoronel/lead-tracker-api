@@ -11,8 +11,9 @@ exports.addData = async (data, category) => {
 
 
 exports.getData = async (condition = {}, category) => {
+    condition = {...condition, status : { $ne : false }}
     return new Promise((resolve, reject) => {
-        Model[category].find({status : { $ne : false }})
+        Model[category].find(condition)
         .then(data => resolve(data))
         .catch(error => reject(error))
     })

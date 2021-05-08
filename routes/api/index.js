@@ -32,8 +32,9 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             const category = req.params.category;
             req.body["status"] = true;
             await Functions.db.addData(req.body, category);
-            const newData = await Functions.db.getData({}, category);
+            // const newData = await Functions.db.getData({}, category);
             // const newData = (category === "leads") ? await Functions.processLeadData(dataToThrow, false) : await Functions.processData(dataToThrow);
+            const newData = (category === "leads") ? await Functions.db.getLeadData({}) : await Functions.db.getData({}, category);
             res.status(200).json(newData);
         } catch(e) {
             console.log("************ ERROR", e);
@@ -49,7 +50,6 @@ const verifyToken = require('../../resources/functions/tokens').verifyToken;
             delete req.body.id;
             await Functions.db.updateData({ "_id" : id}, req.body, category);
             const dataToThrow = (category === "leads") ? await Functions.db.getLeadData({}) : await Functions.db.getData({}, category);
-            console.log("******** data", dataToThrow);
             res.send(dataToThrow);
         } catch(e) {
             res.status(203).json({message: e});

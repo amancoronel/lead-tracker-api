@@ -1,16 +1,9 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird').Promise;
 
-const dbUrl = "mongodb://localhost/brothersbuyhome"
+const config = require('../config');
 
-const connection = mongoose.createConnection(dbUrl, {
-    "useNewUrlParser": true,
-    "useCreateIndex": true,
-    "useUnifiedTopology": true,
-    "useFindAndModify" : false,
-    // "user" : "",
-    // "pass" : ""
-})
+const connection = mongoose.createConnection(config.DBUrlDev,config.DBOptions)
 
 connection.on("connected", () => {
     console.log("Database connected");
