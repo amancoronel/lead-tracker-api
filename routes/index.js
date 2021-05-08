@@ -1,6 +1,7 @@
 const api = require('./api');
 const Classes = require('../resources/classes');
 const functionToken = require('../resources/functions/tokens');
+const functionDB = require('../resources/functions/db');
 
 
 module.exports = (app) => {
@@ -17,16 +18,15 @@ module.exports = (app) => {
             }
             const userCred =  {...req.body};
             //Search if agent is existing
-            const agents = Classes.agents.data;
-            const userFound = Object.keys(agents).filter((x) => agents[x].email === userCred.email );
-            if(!userFound || userFound.length < 1) throw "User not found"
-            const user = agents[userFound[0]];
+            const user = await functionDB.getData({email : userCred.email}, "agents")
+            if(!user || user.length < 1) throw "User not found"
+
             //If user exist, generate token
-            let token = await functionToken.getAuthId(user);
+            let token = await functionToken.getAuthId(user[0]);
             if(!token) throw "Login failed"
 
             req.session.token = token;
-            req.session.user = user;
+            req.session.user = user[0];
             res.status(200).json({user, access_token: token});
         } catch(e) {
             res.status(203).json({message: e})
