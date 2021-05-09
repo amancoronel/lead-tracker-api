@@ -2,9 +2,9 @@ module.exports = (mongoose, connection) => {
     const LeadSchema = new mongoose.Schema({
         address:                {type: String},
         address_type:           {type: String},
-        agent_id:               {type: String},
-        contractor_id:          {type: String},
-        lender_id:              {type: String},
+        agent_id:               {type: String, required: true},
+        contractor_id:          {type: String, required: true},
+        lender_id:              {type: String, required: true},
         leadNumber:             {type: String},
         leadSource:             {type: String},
         renovation:             {type: String},
