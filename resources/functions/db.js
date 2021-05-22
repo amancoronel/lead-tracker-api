@@ -41,6 +41,9 @@ exports.getLeadData = async (condition = {}) => {
                     "lender_id": {
                         "$toObjectId": "$lender_id"
                     },
+                    "titleCompany_id": {
+                        "$toObjectId": "$titleCompany_id"
+                    },
                     "address": 1,
                     "address_type" : 1,
                     "closeDate": 1,
@@ -55,7 +58,11 @@ exports.getLeadData = async (condition = {}) => {
                     "renovation": 1,
                     "status": 1,
                     "titleCompany": 1,
-                    "vacantDate" : 1
+                    "vacantDate" : 1,
+                    "holdback": 1,
+                    "deposit": 1,
+                    "lastTimeSpoken": 1,
+                    "notes": 1,
                 }
             },
             {
@@ -92,6 +99,17 @@ exports.getLeadData = async (condition = {}) => {
                 $unwind: "$lender_data",
             },
             {
+                $lookup: {
+                    from: "title_companies",
+                    localField: "titleCompany_id",
+                    foreignField: "_id",
+                    as: "titleCompany_data"
+                }
+            },
+            {
+                $unwind: "$titleCompany_data",
+            },
+            {
                 "$project" : {
                     "_id" : "$_id",
                     "address": 1,
@@ -118,11 +136,20 @@ exports.getLeadData = async (condition = {}) => {
                         "point_of_contact" : "$lender_data.point_of_contact",
                         "status" : "$lender_data.status",
                     },
+                    "titleCompany_id" : 1,
+                    "titleCompany_data" : {
+                        "name": "$titleCompany_data.name",
+                        "contact_person" : "$titleCompany_data.contact_person"
+                    },
                     "lender_id": 1,
                     "renovation": 1,
                     "status": 1,
                     "titleCompany": 1,
-                    "vacantDate" : 1
+                    "vacantDate" : 1,
+                    "holdback": 1,
+                    "deposit": 1,
+                    "lastTimeSpoken": 1,
+                    "notes": 1,
                 } 
             }
         ])
