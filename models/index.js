@@ -3,7 +3,7 @@ mongoose.Promise = require('bluebird').Promise;
 
 const config = require('../config');
 
-const connection = mongoose.createConnection(config.DBUrl,config.DBOptions)
+const connection = mongoose.createConnection(config.DBUrlDev,config.DBOptions)
 
 connection.on("connected", () => {
     console.log("Database connected");

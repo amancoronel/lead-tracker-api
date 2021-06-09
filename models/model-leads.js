@@ -22,6 +22,10 @@ module.exports = (mongoose, connection) => {
         closeDate:              {type: String},
         estimatedFinishDate:    {type: String},
         vacantDate:             {type: String},
+        isSellerSigned:         {type: Boolean},
+        isDaryllSigned:         {type: Boolean},
+        areLoanDocsIn:          {type: Boolean},
+        isContingentonSellers:  {type: Boolean},
         status:                 {type: Boolean, default: true}
     });
 
