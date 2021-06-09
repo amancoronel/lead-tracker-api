@@ -63,6 +63,10 @@ exports.getLeadData = async (condition = {}) => {
                     "deposit": 1,
                     "lastTimeSpoken": 1,
                     "notes": 1,
+                    "isSellerSigned": 1,
+                    "isDaryllSigned": 1,
+                    "areLoanDocsIn": 1,
+                    "isContingentonSellers": 1,
                 }
             },
             {
@@ -150,6 +154,10 @@ exports.getLeadData = async (condition = {}) => {
                     "deposit": 1,
                     "lastTimeSpoken": 1,
                     "notes": 1,
+                    "isSellerSigned": 1,
+                    "isDaryllSigned": 1,
+                    "areLoanDocsIn": 1,
+                    "isContingentonSellers": 1,
                 } 
             }
         ])
